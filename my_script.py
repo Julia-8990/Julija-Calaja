@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 class Item(ABC):
     def __init__(self, name, prices):
@@ -52,27 +53,31 @@ class PercentageCalculator:
             percentages[category] = percentage
         return percentages
 
+
 def plot_pie_chart(percentages):
     labels = percentages.keys()
     sizes = percentages.values()
     plt.figure(figsize=(6, 6))
+    sns.set_style("darkgrid")
     plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')
     plt.title("Spending Distribution")
 
-def plot_bar_chart(categories, subcategories, expenses):
-    plt.figure(figsize=(12, 8))  # Set the size of the plot
-    for i in range(len(categories)):
-        bars = plt.bar([j + i*0.1 for j in range(len(subcategories[i]))], expenses[i], width=0.1, label=categories[i])
-        for j, bar in enumerate(bars):
-            plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), f"${expenses[i][j]}", ha='center', va='bottom')
-            plt.text(bar.get_x() + bar.get_width() / 2, -5, subcategories[i][j], ha='center', va='bottom', rotation=90)
 
+
+
+def plot_bar_chart(categories, subcategories, expenses):
+    plt.figure(figsize=(12, 8))
+    sns.set_style("dark")
+    for i in range(len(categories)):
+        sns.barplot(x=subcategories[i], y=expenses[i], label=categories[i])
     plt.xlabel('Categories')
     plt.ylabel('Expenses')
     plt.title('Expenses by Categories and Subcategories')
+    plt.xticks(rotation=90)
     plt.legend()
     plt.tight_layout()
+
 
 
 def calculate_expenses(items):
