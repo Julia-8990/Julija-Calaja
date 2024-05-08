@@ -33,7 +33,8 @@ class ShoppingCart:
 #### Factory Method
 Šiame pavyzdyje pateiktas fabrikinis metodas yra create_item metodas klasėje ShoppingCart. Šis metodas priima tris argumentus: name, category ir prices, ir pagal nurodytą prekės kategoriją sukuria atitinkamą prekės objektą. Taigi, šis metodas veikia kaip fabrikinis metodas, kuris sukuria ir grąžina konkrečios kategorijos prekės objektą pagal nurodytus duomenis.
 ~~~
-  @staticmethod
+  class ItemFactory:
+    @staticmethod
     def create_item(name, category, prices):
         if category.lower() == "cosmetics":
             return Cosmetics(name, prices)
@@ -47,6 +48,13 @@ class ShoppingCart:
             return Shop(name, prices)
         else:
             raise ValueError("Unsupported category")
+cart = ShoppingCart()
+
+cart.add_item(ItemFactory.create_item("Skin Care Cosmetics", "Cosmetics", [50, 55, 60]))
+cart.add_item(ItemFactory.create_item("Decorative Cosmetics", "Cosmetics", [30, 35, 40]))
+cart.add_item(ItemFactory.create_item("McDonald's", "Food", [20, 22, 25]))
+cart.add_item(ItemFactory.create_item("Express Pizza", "Food", [15, 18, 20]))
+...
 ~~~
 #### Polymorphism and Abstraction
 Šiame kode polimorfizmas pasireiškia panaudojant paveldėjimą ir abstrakčią bazinę klasę Item. Paveldėtos klasės (Cosmetics, Food, Clothing, Entertainment, Shop) yra įgyvendinamos su skirtingais kategorijų pavadinimais. Tai parodo, kad jos panaudoja abstrakčią Item klasę, tačiau turi unikalų elgesį, kuris priklauso nuo kategorijos. Taigi, kiekviena iš šių klasių turi get_category() metodą, bet šio metodo elgesys skiriasi priklausomai nuo to, kokia yra konkreti klasė. Tai yra polimorfinis elgesys, nes tas pats metodas gali būti iškviečiamas iš Item tipo objekto, bet jo elgesys bus skirtingas pagal konkretų objektą.
