@@ -3,60 +3,49 @@ import numpy as np
 from items import Cosmetics, Food, Clothing, Entertainment, Shop, Item
 from shopping_cart import ShoppingCart
 
-# Create instances of items and add them to the cart
-cosmetics1 = Cosmetics("Skin Care Cosmetics", [50, 55, 60])
-cosmetics2 = Cosmetics("Decorative Cosmetics", [30, 35, 40])
-food1 = Food("McDonald's", [20, 22, 25])
-food2 = Food("Express Pizza", [15, 18, 20])
-food3 = Food("Manami", [15, 18, 20])
-food4 = Food("Sushi city", [0, 0, 0])
-food5 = Food("Wok", [0, 0, 0])
-food6 = Food("Gan bei", [10, 12, 15])
-food7 = Food('Can can', [0, 0, 0])
-clothing1 = Clothing("Bershka", [80, 85, 90])
-clothing2 = Clothing("H&M", [50, 55, 60])
-clothing3 = Clothing("Pull&Bear", [0, 0, 0])
-clothing4 = Clothing("Stradivarius", [0, 0, 0])
-clothing5 = Clothing("Sizeer", [200, 210, 220])
-clothing6 = Clothing("Mohito", [100, 110, 120])
-clothing7 = Clothing("Zara", [100, 105, 110])
-entertainment1 = Entertainment("Movie Tickets", [25, 28, 30])
-entertainment2 = Entertainment("Park", [10, 12])
-entertainment3 = Entertainment("Attractions", [100, 110])
-entertainment4 = Entertainment("Museum", [0, 0])
-entertainment5 = Entertainment("Ice rink", [10, 12, 15])
-shop1 = Shop("Maxima", [100, 90, 110])
-shop2 = Shop("Norfa", [50, 55])
-shop3 = Shop("Iki", [60, 65, 70])
-shop4 = Shop("Rimi", [0, 0])
+@staticmethod
+def create_item(name, category, prices):
+        if category.lower() == "cosmetics":
+            return Cosmetics(name, prices)
+        elif category.lower() == "food":
+            return Food(name, prices)
+        elif category.lower() == "clothing":
+            return Clothing(name, prices)
+        elif category.lower() == "entertainment":
+            return Entertainment(name, prices)
+        elif category.lower() == "shop":
+            return Shop(name, prices)
+        else:
+            raise ValueError("Unsupported category")
 
-# Create a shopping cart
+# Create instances of items and add them to the cart using the factory method
 cart = ShoppingCart()
-cart.add_item(cosmetics1)
-cart.add_item(cosmetics2)
-cart.add_item(food1)
-cart.add_item(food2)
-cart.add_item(food3)
-cart.add_item(food4)
-cart.add_item(food5)
-cart.add_item(food6)
-cart.add_item(food7)
-cart.add_item(clothing1)
-cart.add_item(clothing2)
-cart.add_item(clothing3)
-cart.add_item(clothing4)
-cart.add_item(clothing5)
-cart.add_item(clothing6)
-cart.add_item(clothing7)
-cart.add_item(entertainment1)
-cart.add_item(entertainment2)
-cart.add_item(entertainment3)
-cart.add_item(entertainment4)
-cart.add_item(entertainment5)
-cart.add_item(shop1)
-cart.add_item(shop2)
-cart.add_item(shop3)
-cart.add_item(shop4)
+cart.add_item(ShoppingCart.create_item("Skin Care Cosmetics", "Cosmetics", [50, 55, 60]))
+cart.add_item(ShoppingCart.create_item("Decorative Cosmetics", "Cosmetics", [30, 35, 40]))
+cart.add_item(ShoppingCart.create_item("McDonald's", "Food", [20, 22, 25]))
+cart.add_item(ShoppingCart.create_item("Express Pizza", "Food", [15, 18, 20]))
+cart.add_item(ShoppingCart.create_item("Manami", "Food", [15, 18, 20]))
+cart.add_item(ShoppingCart.create_item("Sushi city", "Food", [0, 0, 0]))
+cart.add_item(ShoppingCart.create_item("Wok", "Food", [0, 0, 0]))
+cart.add_item(ShoppingCart.create_item("Gan bei", "Food", [10, 12, 15]))
+cart.add_item(ShoppingCart.create_item("Can can", "Food", [0, 0, 0]))
+cart.add_item(ShoppingCart.create_item("Bershka", "Clothing", [80, 85, 90]))
+cart.add_item(ShoppingCart.create_item("H&M", "Clothing", [50, 55, 60]))
+cart.add_item(ShoppingCart.create_item("Pull&Bear", "Clothing", [0, 0, 0]))
+cart.add_item(ShoppingCart.create_item("Stradivarius", "Clothing", [0, 0, 0]))
+cart.add_item(ShoppingCart.create_item("Sizeer", "Clothing", [200, 210, 220]))
+cart.add_item(ShoppingCart.create_item("Mohito", "Clothing", [100, 110, 120]))
+cart.add_item(ShoppingCart.create_item("Zara", "Clothing", [100, 105, 110]))
+cart.add_item(ShoppingCart.create_item("Movie Tickets", "Entertainment", [25, 28, 30]))
+cart.add_item(ShoppingCart.create_item("Park", "Entertainment", [10, 12]))
+cart.add_item(ShoppingCart.create_item("Attractions", "Entertainment", [100, 110]))
+cart.add_item(ShoppingCart.create_item("Museum", "Entertainment", [0, 0]))
+cart.add_item(ShoppingCart.create_item("Ice rink", "Entertainment", [10, 12, 15]))
+cart.add_item(ShoppingCart.create_item("Maxima", "Shop", [100, 90, 110]))
+cart.add_item(ShoppingCart.create_item("Norfa", "Shop", [50, 55]))
+cart.add_item(ShoppingCart.create_item("Iki", "Shop", [60, 65, 70]))
+cart.add_item(ShoppingCart.create_item("Rimi", "Shop", [0, 0]))
+
 
 # Prepare data for the graphs
 item_names = [item.name for item in cart.items if np.mean(item.prices) > 0]
