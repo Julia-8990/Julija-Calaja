@@ -97,7 +97,10 @@ plt.xlabel('Items')
 plt.ylabel('Average Price')
 plt.title('Average Prices of Items')
 plt.xticks(rotation=90)
+
+for i, price in enumerate(item_prices):
+    plt.text(i, price + 1, f'{price:.1f}', ha='center', color='white')
+
 plt.tight_layout()
-
-
+plt.show()
 plt.show()
